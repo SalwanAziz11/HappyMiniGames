@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "HappyMiniArcade",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist -r https://x-access-token:$GH_TOKEN@github.com/SalwanAziz11/HappyMiniGames.git"
   },
-  "homepage": "https://<your-github-username>.github.io/<repo-name>",
+  "homepage": "https://SalwanAziz11.github.io/HappyMiniGames",
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
