@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="dark" style="background:#0f172a;color:#e2e8f0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frontend</title>
+    <script>
+      (function () {
+        const savedTheme =
+          localStorage.getItem("happy-mini-arcade-theme") === "light" ? "light" : "dark";
+        const bg = savedTheme === "light" ? "#f8fbff" : "#0f172a";
+        const color = savedTheme === "light" ? "#1b2744" : "#e2e8f0";
+        document.documentElement.dataset.theme = savedTheme;
+        document.documentElement.style.background = bg;
+        const applyToBody = () => {
+          if (!document.body) {
+            requestAnimationFrame(applyToBody);
+            return;
+          }
+          document.body.dataset.theme = savedTheme;
+          document.body.style.background = bg;
+          document.body.style.color = color;
+        };
+        applyToBody();
+      })();
+    </script>
+  </head>
+  <body data-theme="dark" style="background:#0f172a;color:#e2e8f0">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

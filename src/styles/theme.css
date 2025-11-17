@@ -1,0 +1,28 @@
+:root {
+  --bg: #f8fbff;
+  --bg-secondary: #ffffff;
+  --card-bg: #ffffff;
+  --text: #1b2744;
+  --text-muted: #5f6b87;
+  --button-bg: linear-gradient(135deg, #a5b4fc, #fbcfe8);
+  --button-text: #111827;
+  --accent: #86efac;
+  --shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
+  --icon-bar-color: #1b2744;
+}
+
+/* Theme system uses data-theme attr to map new colors. */
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-secondary: #1e1f33;
+  --card-bg: #1a1c2d;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --button-bg: linear-gradient(135deg, #4ade80, #38bdf8);
+  --button-text: #0f172a;
+  --accent: #fcd34d;
+  --shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+  --icon-bar-color: #f8fafc;
+}
+
+/* Add new variables here to keep theme consistent. */
