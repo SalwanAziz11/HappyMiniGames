@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { GameComponentProps } from "../types/game";
 
 const GRID_SIZE = 16;
@@ -23,6 +23,9 @@ const SnakeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSignal })
   const [food, setFood] = useState({ x: 10, y: 7 });
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const boardRef = useRef<HTMLDivElement | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     reset();
@@ -32,6 +35,10 @@ const SnakeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSignal })
   useEffect(() => {
     onScoreUpdate(score);
   }, [score, onScoreUpdate]);
+
+  useEffect(() => {
+    setIsMobile(/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
+  }, []);
 
   useEffect(() => {
     const handle = (event: KeyboardEvent) => {
@@ -47,6 +54,44 @@ const SnakeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSignal })
     window.addEventListener("keydown", handle);
     return () => window.removeEventListener("keydown", handle);
   }, [direction]);
+
+  useEffect(() => {
+    if (!isMobile || !boardRef.current) return;
+
+    const handleTouchStart = (event: TouchEvent) => {
+      const { clientX, clientY } = event.touches[0];
+      touchStart.current = { x: clientX, y: clientY };
+    };
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      if (!touchStart.current) return;
+      const { clientX, clientY } = event.changedTouches[0];
+      const deltaX = clientX - touchStart.current.x;
+      const deltaY = clientY - touchStart.current.y;
+      touchStart.current = null;
+      if (Math.abs(deltaX) < 25 && Math.abs(deltaY) < 25) return;
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        setDirection((prev) => {
+          const next = deltaX > 0 ? directions.ArrowRight : directions.ArrowLeft;
+          return next.x === -prev.x ? prev : next;
+        });
+      } else {
+        setDirection((prev) => {
+          const next = deltaY > 0 ? directions.ArrowDown : directions.ArrowUp;
+          return next.y === -prev.y ? prev : next;
+        });
+      }
+    };
+
+    const board = boardRef.current;
+    board.addEventListener("touchstart", handleTouchStart, { passive: true });
+    board.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    return () => {
+      board.removeEventListener("touchstart", handleTouchStart);
+      board.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isMobile]);
 
   useEffect(() => {
     if (gameOver) return;
@@ -99,8 +144,14 @@ const SnakeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSignal })
 
   return (
     <div>
-      <p className="modal-description">{gameOver ? "Game over! Press Restart." : "Use arrows to steer the snake."}</p>
-      <div className="snake-board">
+      <p className="modal-description">
+        {gameOver
+          ? "Game over! Press Restart."
+          : isMobile
+            ? "Swipe to steer the snake (optimized for iPhone)."
+            : "Use arrow keys to steer the snake."}
+      </p>
+      <div ref={boardRef} className="snake-board" aria-label="Snake game board">
         {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, index) => {
           const x = index % GRID_SIZE;
           const y = Math.floor(index / GRID_SIZE);
