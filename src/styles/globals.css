@@ -1068,8 +1068,14 @@ main {
   }
 
   .menu-panel {
-    right: 50%;
-    transform-origin: center top;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -6px) scale(0.96);
+    transform-origin: top center;
+  }
+
+  .menu-panel.open {
+    transform: translate(-50%, 0) scale(1);
   }
 
   .game-view-header {
