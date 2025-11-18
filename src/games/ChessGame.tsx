@@ -290,6 +290,7 @@ const ChessGame: React.FC<GameComponentProps> = ({ resetSignal, onScoreUpdate })
     ));
 
   const currentTurn = engineRef.current.getTurn();
+  const rowIndices = Array.from({ length: board.length }, (_, idx) => board.length - 1 - idx);
 
   return (
     <div className="chess-area">
@@ -332,15 +333,17 @@ const ChessGame: React.FC<GameComponentProps> = ({ resetSignal, onScoreUpdate })
       </div>
       {checkMessage && <div className="check-alert">{checkMessage}</div>}
       <div className="chess-board">
-        {board.map((row, rowIndex) =>
-          row.map((piece, colIndex) => (
+        {rowIndices.map((rowIndex) =>
+          board[rowIndex].map((piece, colIndex) => (
             <button
               key={`${rowIndex}-${colIndex}`}
               type="button"
               className={getSquareClasses(rowIndex, colIndex)}
               onClick={() => handleSquare(rowIndex, colIndex)}
             >
-              <span className="chess-piece">{piece ? pieceSymbols[piece.color][piece.type] : ""}</span>
+              <span className="chess-piece">
+                {piece ? pieceSymbols[piece.color][piece.type] : ""}
+              </span>
             </button>
           ))
         )}
