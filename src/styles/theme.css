@@ -1,28 +1,31 @@
 :root {
-  --bg: #f8fbff;
+  --bg: #f4f7ff;
   --bg-secondary: #ffffff;
   --card-bg: #ffffff;
-  --text: #1b2744;
-  --text-muted: #5f6b87;
-  --button-bg: linear-gradient(135deg, #a5b4fc, #fbcfe8);
-  --button-text: #111827;
-  --accent: #86efac;
-  --shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
-  --icon-bar-color: #1b2744;
+  --text: #1c1c2d;
+  --text-muted: #606b89;
+  --button-bg: linear-gradient(135deg, #7dd3fc, #f9a8d4);
+  --button-text: #0f172a;
+  --accent: #f472b6;
+  --shadow: 0 15px 30px rgba(15, 23, 42, 0.18);
+  --icon-bar-color: #1c1c2d;
+  --board-light: #f8fafc;
+  --board-dark: #cbd5f5;
 }
 
-/* Theme system uses data-theme attr to map new colors. */
 [data-theme="dark"] {
   --bg: #0f172a;
-  --bg-secondary: #1e1f33;
-  --card-bg: #1a1c2d;
-  --text: #e2e8f0;
+  --bg-secondary: #1d253b;
+  --card-bg: #1a2032;
+  --text: #f1f5f9;
   --text-muted: #94a3b8;
   --button-bg: linear-gradient(135deg, #4ade80, #38bdf8);
   --button-text: #0f172a;
   --accent: #fcd34d;
-  --shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
-  --icon-bar-color: #f8fafc;
+  --shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  --icon-bar-color: #f1f5f9;
+  --board-light: #4a5568;
+  --board-dark: #1a2238;
 }
 
 /* Add new variables here to keep theme consistent. */
