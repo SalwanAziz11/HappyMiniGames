@@ -5,20 +5,20 @@ import type { Color, Move, Piece, PieceType, Square } from "./chessLogic";
 
 const pieceSymbols: Record<Color, Record<PieceType, string>> = {
   white: {
-    pawn: "♙",
-    knight: "♘",
-    bishop: "♗",
-    rook: "♖",
-    queen: "♕",
-    king: "♔",
+    pawn: "?",
+    knight: "?",
+    bishop: "?",
+    rook: "?",
+    queen: "?",
+    king: "?",
   },
   black: {
-    pawn: "♟",
-    knight: "♞",
-    bishop: "♝",
-    rook: "♜",
-    queen: "♛",
-    king: "♚",
+    pawn: "?",
+    knight: "?",
+    bishop: "?",
+    rook: "?",
+    queen: "?",
+    king: "?",
   },
 };
 
@@ -198,3 +198,4 @@ const ChessGame: React.FC<GameComponentProps> = ({ resetSignal, onScoreUpdate })
 };
 
 export default ChessGame;
+
