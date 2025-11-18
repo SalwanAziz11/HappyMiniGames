@@ -5,20 +5,20 @@ import type { Color, Move, Piece, PieceType, Square } from "./chessLogic";
 
 const pieceSymbols: Record<Color, Record<PieceType, string>> = {
   white: {
-    pawn: "♙",
-    knight: "♘",
-    bishop: "♗",
-    rook: "♖",
-    queen: "♕",
-    king: "♔",
+    pawn: "?",
+    knight: "?",
+    bishop: "?",
+    rook: "?",
+    queen: "?",
+    king: "?",
   },
   black: {
-    pawn: "♟",
-    knight: "♞",
-    bishop: "♝",
-    rook: "♜",
-    queen: "♛",
-    king: "♚",
+    pawn: "?",
+    knight: "?",
+    bishop: "?",
+    rook: "?",
+    queen: "?",
+    king: "?",
   },
 };
 
@@ -141,7 +141,7 @@ const ChessGame: React.FC<GameComponentProps> = ({ resetSignal, onScoreUpdate })
     if (engine.isGameOver()) {
       const winner = engine.getWinner();
       if (winner && winner !== "draw") {
-        setStatus(`Checkmate – ${colorName[winner]} wins`);
+        setStatus(`Checkmate ? ${colorName[winner]} wins`);
         setCheckMessage(null);
       } else {
         setStatus("Stalemate (draw)");
@@ -331,7 +331,9 @@ const ChessGame: React.FC<GameComponentProps> = ({ resetSignal, onScoreUpdate })
           </div>
         )}
       </div>
-      {checkMessage && <div className="check-alert">{checkMessage}</div>}
+      <div className="check-alert-slot">
+        {checkMessage && <div className="check-alert">{checkMessage}</div>}
+      </div>
       <div className="chess-board">
         {rowIndices.map((rowIndex) =>
           board[rowIndex].map((piece, colIndex) => (
@@ -353,3 +355,11 @@ const ChessGame: React.FC<GameComponentProps> = ({ resetSignal, onScoreUpdate })
 };
 
 export default ChessGame;
+
+
+
+
+
+
+
+

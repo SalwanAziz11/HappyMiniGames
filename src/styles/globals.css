@@ -549,6 +549,13 @@ main {
   box-shadow: var(--shadow);
 }
 
+.check-alert-slot {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .chess-board {
   display: grid;
   grid-template-columns: repeat(8, minmax(0, 1fr));
