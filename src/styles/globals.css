@@ -575,6 +575,8 @@ main {
 
 .chess-piece {
   font-size: 2rem;
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  color: inherit;
 }
 
 .blackjack-area {
