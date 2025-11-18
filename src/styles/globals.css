@@ -528,6 +528,27 @@ main {
   font-size: 1.2rem;
 }
 
+.chess-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.difficulty-options.chess {
+  justify-content: flex-start;
+}
+
+.check-alert {
+  background: rgba(248, 113, 113, 0.18);
+  border-radius: 18px;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
 .chess-board {
   display: grid;
   grid-template-columns: repeat(8, minmax(0, 1fr));
