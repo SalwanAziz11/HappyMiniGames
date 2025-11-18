@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { GameComponentProps } from "../types/game";
 
 const SIZE = 4;
@@ -22,6 +22,9 @@ const addTile = (board: number[][]) => {
 const TileMergeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSignal }) => {
   const [board, setBoard] = useState(() => addTile(addTile(createBoard())));
   const [score, setScore] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const handle = (event: KeyboardEvent) => {
@@ -37,6 +40,45 @@ const TileMergeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSigna
   useEffect(() => {
     onScoreUpdate(score);
   }, [score, onScoreUpdate]);
+
+  useEffect(() => {
+    setIsMobile(/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile || !gridRef.current) return;
+    const handleTouchStart = (event: TouchEvent) => {
+      event.preventDefault();
+      const { clientX, clientY } = event.touches[0];
+      touchStart.current = { x: clientX, y: clientY };
+    };
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
+    };
+    const handleTouchEnd = (event: TouchEvent) => {
+      event.preventDefault();
+      if (!touchStart.current) return;
+      const { clientX, clientY } = event.changedTouches[0];
+      const deltaX = clientX - touchStart.current.x;
+      const deltaY = clientY - touchStart.current.y;
+      touchStart.current = null;
+      if (Math.abs(deltaX) < 25 && Math.abs(deltaY) < 25) return;
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        move(deltaX > 0 ? "ArrowRight" : "ArrowLeft");
+      } else {
+        move(deltaY > 0 ? "ArrowDown" : "ArrowUp");
+      }
+    };
+    const node = gridRef.current;
+    node.addEventListener("touchstart", handleTouchStart, { passive: false });
+    node.addEventListener("touchmove", handleTouchMove, { passive: false });
+    node.addEventListener("touchend", handleTouchEnd, { passive: false });
+    return () => {
+      node.removeEventListener("touchstart", handleTouchStart);
+      node.removeEventListener("touchmove", handleTouchMove);
+      node.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isMobile, board]);
 
   useEffect(() => {
     setBoard(addTile(addTile(createBoard())));
@@ -96,8 +138,10 @@ const TileMergeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSigna
 
   return (
     <div>
-      <p className="modal-description">Use arrow keys to slide tiles and build high numbers.</p>
-      <div className="tile-grid">
+      <p className="modal-description">
+        {isMobile ? "Swipe to slide tiles and chase high numbers." : "Use arrow keys to slide tiles and build high numbers."}
+      </p>
+      <div ref={gridRef} className="tile-grid">
         {board.map((row, r) =>
           row.map((value, c) => (
             <span key={`${r}-${c}`} className={`tile-cell value-${value}`}>
