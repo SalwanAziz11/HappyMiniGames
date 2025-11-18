@@ -13,6 +13,44 @@ body {
   min-height: 100vh;
 }
 
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: var(--text);
+}
+
+[data-theme="light"],
+[data-theme="light"] body {
+  color: var(--text);
+}
+
+[data-theme="light"] .hero,
+[data-theme="light"] .menu-panel,
+[data-theme="light"] .game-view-layout,
+[data-theme="light"] .card-grid,
+[data-theme="light"] .tile-grid,
+[data-theme="light"] .memory-grid,
+[data-theme="light"] .snake-board,
+[data-theme="light"] .modal,
+[data-theme="light"] .stats-panel {
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+[data-theme="light"] .modal-description,
+[data-theme="light"] .card-description,
+[data-theme="light"] .stat-pill,
+[data-theme="light"] .menu-item,
+[data-theme="light"] .dropdown-separator,
+[data-theme="light"] .capture-strip,
+[data-theme="light"] .difficulty-pill,
+[data-theme="light"] .tile-cell,
+[data-theme="light"] .status-bar {
+  color: var(--text);
+}
+
 main {
   min-height: 100vh;
 }
@@ -119,6 +157,7 @@ main {
   top: calc(100% + 0.4rem);
   right: 1.5rem;
   background: var(--card-bg);
+  border: 1px solid var(--panel-border);
   border-radius: 24px;
   padding: 1rem;
   min-width: 240px;
@@ -528,6 +567,14 @@ main {
   font-size: 1.2rem;
 }
 
+.captured.white {
+  color: var(--piece-white-color);
+}
+
+.captured.black {
+  color: var(--piece-black-color);
+}
+
 .chess-controls {
   display: flex;
   flex-wrap: wrap;
@@ -562,7 +609,8 @@ main {
   gap: 0.25rem;
   border-radius: 24px;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
   touch-action: manipulation;
 }
 
@@ -580,12 +628,13 @@ main {
 }
 
 .square-light {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--board-light);
+  color: var(--piece-black-color);
 }
 
 .square-dark {
-  background: rgba(15, 23, 42, 0.85);
-  color: #f8fafc;
+  background: var(--board-dark);
+  color: var(--piece-white-color);
 }
 
 .square-selected {
@@ -605,6 +654,17 @@ main {
   font-size: 2rem;
   font-family: "Segoe UI Symbol", "Noto Sans Symbols", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
   color: inherit;
+  transition: transform 0.18s ease;
+}
+
+.chess-piece.piece-white {
+  color: var(--piece-white-color);
+  text-shadow: 0 2px 6px rgba(15, 23, 42, 0.45);
+}
+
+.chess-piece.piece-black {
+  color: var(--piece-black-color);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.35);
 }
 
 .blackjack-area {

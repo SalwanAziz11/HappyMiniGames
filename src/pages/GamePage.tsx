@@ -30,7 +30,7 @@ const GamePage: React.FC<GamePageProps> = ({
 }) => {
   const Component = game.component;
   const isTicTacToe = game.id === "tictactoe";
-  const bestScoreLabel = bestScore ?? "—";
+  const bestScoreLabel = bestScore === null ? "\u2014" : bestScore;
 
   return (
     <section className="app-shell">

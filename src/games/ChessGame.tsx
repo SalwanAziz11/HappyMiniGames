@@ -5,20 +5,20 @@ import type { Color, Move, Piece, PieceType, Square } from "./chessLogic";
 
 const pieceSymbols: Record<Color, Record<PieceType, string>> = {
   white: {
-    pawn: "?",
-    knight: "?",
-    bishop: "?",
-    rook: "?",
-    queen: "?",
-    king: "?",
+    pawn: "\u2659",
+    knight: "\u2658",
+    bishop: "\u2657",
+    rook: "\u2656",
+    queen: "\u2655",
+    king: "\u2654",
   },
   black: {
-    pawn: "?",
-    knight: "?",
-    bishop: "?",
-    rook: "?",
-    queen: "?",
-    king: "?",
+    pawn: "\u265F",
+    knight: "\u265E",
+    bishop: "\u265D",
+    rook: "\u265C",
+    queen: "\u265B",
+    king: "\u265A",
   },
 };
 
@@ -343,7 +343,7 @@ const ChessGame: React.FC<GameComponentProps> = ({ resetSignal, onScoreUpdate })
               className={getSquareClasses(rowIndex, colIndex)}
               onClick={() => handleSquare(rowIndex, colIndex)}
             >
-              <span className="chess-piece">
+              <span className={`chess-piece ${piece ? `piece-${piece.color}` : ""}`}>
                 {piece ? pieceSymbols[piece.color][piece.type] : ""}
               </span>
             </button>

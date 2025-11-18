@@ -11,6 +11,10 @@
   --icon-bar-color: #1c1c2d;
   --board-light: #f8fafc;
   --board-dark: #cbd5f5;
+  --panel-bg: rgba(255, 255, 255, 0.95);
+  --panel-border: rgba(15, 23, 42, 0.08);
+  --piece-white-color: #fef7ff;
+  --piece-black-color: #1e1b4b;
 }
 
 [data-theme="dark"] {
@@ -26,6 +30,10 @@
   --icon-bar-color: #f1f5f9;
   --board-light: #4a5568;
   --board-dark: #1a2238;
+  --panel-bg: rgba(26, 32, 50, 0.85);
+  --panel-border: rgba(148, 163, 184, 0.35);
+  --piece-white-color: #fefaf5;
+  --piece-black-color: #a5b4fc;
 }
 
 /* Add new variables here to keep theme consistent. */
