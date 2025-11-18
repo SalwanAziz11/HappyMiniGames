@@ -30,6 +30,7 @@ const App: React.FC = () => {
   const [tttDifficulty, setTttDifficulty] = useState<TicTacToeDifficulty>(
     () => (localStorage.getItem("ttt-difficulty") as TicTacToeDifficulty) ?? "normal"
   );
+  const scrollMemoryRef = useRef(0);
 
   useEffect(() => {
     const stored = localStorage.getItem(HIGH_SCORES_KEY);
@@ -80,6 +81,7 @@ const App: React.FC = () => {
   );
 
   const handleSelectGame = (id: string) => {
+    scrollMemoryRef.current = window.scrollY;
     setSelectedGameId(id);
     setGamesPlayed((prev) => prev + 1);
     setRecentGames((prev) => {
@@ -95,10 +97,20 @@ const App: React.FC = () => {
     handleSelectGame(choice.id);
   };
 
-  const handleBack = () => setSelectedGameId(null);
+  const restoreScroll = () => {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollMemoryRef.current, behavior: "auto" });
+    });
+  };
+
+  const handleBack = () => {
+    setSelectedGameId(null);
+    restoreScroll();
+  };
   const handleGoHome = () => {
     setSelectedGameId(null);
     setMenuOpen(false);
+    restoreScroll();
   };
 
   const handleRestart = () => {

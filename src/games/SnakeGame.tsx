@@ -59,11 +59,17 @@ const SnakeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSignal })
     if (!isMobile || !boardRef.current) return;
 
     const handleTouchStart = (event: TouchEvent) => {
+      event.preventDefault();
       const { clientX, clientY } = event.touches[0];
       touchStart.current = { x: clientX, y: clientY };
     };
 
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
+    };
+
     const handleTouchEnd = (event: TouchEvent) => {
+      event.preventDefault();
       if (!touchStart.current) return;
       const { clientX, clientY } = event.changedTouches[0];
       const deltaX = clientX - touchStart.current.x;
@@ -84,11 +90,13 @@ const SnakeGame: React.FC<GameComponentProps> = ({ onScoreUpdate, resetSignal })
     };
 
     const board = boardRef.current;
-    board.addEventListener("touchstart", handleTouchStart, { passive: true });
-    board.addEventListener("touchend", handleTouchEnd, { passive: true });
+    board.addEventListener("touchstart", handleTouchStart, { passive: false });
+    board.addEventListener("touchmove", handleTouchMove, { passive: false });
+    board.addEventListener("touchend", handleTouchEnd, { passive: false });
 
     return () => {
       board.removeEventListener("touchstart", handleTouchStart);
+      board.removeEventListener("touchmove", handleTouchMove);
       board.removeEventListener("touchend", handleTouchEnd);
     };
   }, [isMobile]);

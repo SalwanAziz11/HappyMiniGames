@@ -318,6 +318,8 @@ main {
   justify-content: center;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
+  touch-action: manipulation;
+  will-change: background;
 }
 
 .tic-cell:hover {
@@ -814,6 +816,7 @@ main {
   background: rgba(15, 23, 42, 0.08);
   padding: 12px;
   border-radius: 16px;
+  touch-action: none;
 }
 
 .snake-cell {
